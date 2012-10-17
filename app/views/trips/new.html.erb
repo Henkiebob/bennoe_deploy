@@ -1,0 +1,37 @@
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1XdOyTrhnTo0ys0MWXVs3YXisqiC6Vyk&sensor=false"></script>
+
+<style>
+	#toCopy {
+		display: none;
+	}
+</style>
+<div style="width: 500px; height: 500px; float:left;">
+	<div id="map_canvas" style="width:100%; height:100%"></div>
+</div>
+
+<div id="listing" style="width:200px; height: 500px; float: left;">
+	<div id="creationBlock">
+		<a href="javascript: void(0);" id="markerToggler">Start met locaties plaatsen</a>
+		<a href="javascript: void(0);" onClick="deleteLastWaypoint();">Verwijder laatste punt</a>
+		
+		<%= form_for @trip, :html => {:id => 'listingForm'} do |a| %> 
+			<%#= a.label "Routetitel" %>
+			<%#= a.text_field :title %>
+			<%= a.fields_for :triplocations do |f| %>
+				<p class="locations" id="toCopy">
+					<%= f.label :title, 'Titel:' %>
+					<%= f.text_field :title, :id => 'titleField' %>
+					
+					<%= f.label :description, 'Omschrijving:' %>
+					<%= f.text_field :description , :id => 'descriptionField'%>
+					
+					<%= f.hidden_field  :latlng, :id => 'latlngField' %>
+				</p> 
+				<div id="inputFields"></div>
+			<% end %>
+			<p><%#= link_to_add_fields "Add Loc", a%></p>
+			<%= a.submit 'Verstuur', :id => 'submitMarkers' %>
+		<% end %>
+	</div>
+	<div id="detailsBlock"></div>
+</div>

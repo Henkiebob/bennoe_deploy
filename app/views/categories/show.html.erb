@@ -1,0 +1,14 @@
+
+<% unless @tripsByCat.blank? %>
+	<% @tripsByCat.each do |trip| %>
+		<article>
+			<h1><%= trip.title %></h1>
+			<p>
+				<%= trip.description %>
+			</p>
+			<%= link_to "Zie volledige route", trip %>
+		</article>
+	<% end %>
+<% else %>
+	Leeg
+<% end %>

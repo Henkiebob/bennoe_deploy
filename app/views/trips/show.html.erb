@@ -1,0 +1,61 @@
+<div style="width: 500px; height: 500px; float:left;">
+	<div id="map_canvas" style="width:100%; height:100%"></div>
+</div>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA1XdOyTrhnTo0ys0MWXVs3YXisqiC6Vyk&sensor=false"></script>
+
+<div id="listing" style="width:200px; height: 500px; float: left;">
+	<p id="notice"><%= notice %></p>
+	<p>
+	  <b>Title:</b>
+	  <%= @trip.title %>
+	</p>
+
+	<p>
+	  <b>Description:</b>
+	  <%= @trip.description %>
+	</p>
+	<% for cat in @trip.categories %>
+		<%= link_to cat.name, cat %>
+	<% end %>
+	<%#= image_tag @trip.photo.url(:small) %>
+	
+	<h2>Route</h1>
+	<% i = 0 %>
+	<% @trip.triplocations.each_with_index do |tl, i| %>
+		<article id="<%= dom_id(tl)  %>">
+			<%= i+1 %><strong> <%= tl.title %> </strong>
+			<p>
+				<%= tl.description %>
+			</p>
+		</article>
+	<% end %>
+</div>
+
+<script>
+	var locs = [];
+	 <% @trip.triplocations.each do |tl| %>
+		locs.push('<%= tl.latlng %>');
+	<% end %>
+	
+	if (locs.length > 0 ) {
+		//get the first location and split it(THis one is used to set the startpoint on the map)
+		loc = locs[0].split(', ');
+		
+		//Set map options
+		var mapOptions = {
+			center: new google.maps.LatLng(loc[0], loc[1]),
+			zoom: 13,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		
+		//Instantiate map
+		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+		
+		//Draw the markers saved in the locs array
+		drawMap(locs);
+	}
+</script>
+
+
+<%= link_to 'Edit', edit_trip_path(@trip) %> |
+<%= link_to 'Back', trips_path %>

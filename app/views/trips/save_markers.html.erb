@@ -1,0 +1,17 @@
+<%= form_for @trip, :html => {:multipart => true} do |a| %> 
+	<%= a.label :title, "Routetitel" %>
+	<%= a.text_field :title %>
+	
+	<%= a.label :description, "Omschrijving" %>
+	<%= a.text_area :description %>
+	
+	<% for category in Category.find(:all) %>
+		<div>
+		  <%= check_box_tag "trip[category_ids][]", category.id, @trip.categories.include?(category) %>
+		  <%= category.name %>
+		</div>
+	<% end %>
+	<%= a.submit 'Verstuur' %>
+<% end %>
+
+

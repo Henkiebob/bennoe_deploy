@@ -1,0 +1,11 @@
+<%= form_for @category do |f| %>
+	<%= f.label :name, 'Naam:' %>
+	<%= f.text_field :name %>
+	<%= f.submit %>
+<% end %>
+
+<% unless @allCategories.blank? %> 
+	<% @allCategories.each do |c| %>
+		<%= link_to 'X', c, method: :delete, data: { confirm: 'Zeker weten verwijderen?!' } %><%= c.name %><br>
+	<% end %>
+<% end %>
