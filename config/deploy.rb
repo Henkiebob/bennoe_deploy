@@ -4,7 +4,7 @@ require "bundler/capistrano"
 
 #set :rvm_ruby_string, '1.9.3'
 #set :rvm_type, :system 
-
+#test
 load 'deploy/assets'
 
 set :application, "bennoe_dev_1"
