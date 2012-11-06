@@ -15,14 +15,17 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 #gem "mini_magick", "~> 3.4"
+gem 'awesome_print'
 
+gem 'mini_magick'
+gem 'carrierwave'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -35,7 +38,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'

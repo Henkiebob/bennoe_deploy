@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017073727) do
+ActiveRecord::Schema.define(:version => 20121105143221) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(:version => 20121017073727) do
   create_table "categories_trips", :force => true do |t|
     t.integer "category_id"
     t.string  "trip_id"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tags_trips", :force => true do |t|
+    t.integer "trip_id"
+    t.integer "tag_id"
   end
 
   create_table "tripcategories", :force => true do |t|
@@ -38,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20121017073727) do
     t.datetime "updated_at",  :null => false
     t.string   "title"
     t.text     "description"
+    t.integer  "is_snapped"
+  end
+
+  create_table "tripphotos", :force => true do |t|
+    t.string   "filename"
+    t.integer  "trip_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "trips", :force => true do |t|
@@ -47,6 +66,10 @@ ActiveRecord::Schema.define(:version => 20121017073727) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "category_id"
+    t.string   "start_city"
+    t.string   "province"
+    t.integer  "range_high"
+    t.integer  "range_low"
   end
 
 end

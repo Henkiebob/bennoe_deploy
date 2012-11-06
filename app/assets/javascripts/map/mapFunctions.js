@@ -1,24 +1,45 @@
-var walkingPath;
-function createLines(markers) {
-	if (walkingPath) {
-		//If a walkingPath already exists, empty it out
-		walkingPath.setPath([]);
+var path = [];
+var service;
+var poly;
+var distance = 0;
+jQuery(document).ready(function() {
+	service = new google.maps.DirectionsService();
+});
+function createLines(marker, snap) {
+	if (snap != 0 && snap != 1) {
+		snap = 0;
+	}
+	if (path.length == 0) {
+		path.push(marker);
+		poly = new google.maps.Polyline({ map: map });
+		poly.setPath(path);
+	} else {
+	
+		service.route({
+			origin: path[path.length - 1],
+			destination: marker,
+			travelMode: google.maps.DirectionsTravelMode.WALKING
+		}, function(result, status) {
+			if (status == google.maps.DirectionsStatus.OK) {
+				if (snap == 1) {
+					path = path.concat(result.routes[0].overview_path);
+				} else {
+					path.push(marker);
+				}
+				newDistance = result.routes[0].legs[0].distance.value + 0;
+				
+				distance = distance+newDistance;
+				poly.setPath(path);
+			}
+		});
 	}
 	
-	//Put all markers into a path
-	walkingPath = new google.maps.Polyline({
-		path: markers,
-		strokeColor: "#000000",
-		strokeOpacity: 1.0,
-		strokeWeight: 2
-	});
-	
-	walkingPath.setMap(map);
+	return distance;
 }
 
 function changeValue(id) {
-	var inputField = jQuery('#'+id).find('#titleField');
-	jQuery(inputField).val(jQuery(inputField).val());
+	var inputField = document.getElementById(id);
+	inputField.value = inputField.value;
 }
 
 function deleteLastWaypoint() {
@@ -39,4 +60,37 @@ function deleteLastWaypoint() {
 }
 
 
+function getCitynameByCoordinates (coords) {
+	//Send the request to google maps api to get back a JSON object with the city
+	geocoder = new google.maps.Geocoder();
+	geocoder.geocode({ 'address': coords }, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			//Check to see if the cityName is present. If it is send it to a function
+			//Which sets the value of the inputfield.
+			if (results[0].address_components[2].short_name) {
+				addCitynameToForm(results[0].address_components[2].short_name);
+			}
 
+			//Check to see if the provincename is present. If so send it to a function
+			//Which handles the select form and set the correct province to selected if possible
+			if (results[0].address_components[4].long_name) {
+				addProvinceToSelect(results[0].address_components[4].long_name);
+			}
+
+		}
+	});
+}
+
+function addCitynameToForm(name) {
+	jQuery('#cityName').val(name);
+}
+
+function addProvinceToSelect(province) {
+	var selectVal = '';
+	jQuery('#trip_province').find('option').each (function() {
+		selectVal = jQuery(this).val();
+		if (selectVal == province) {
+			jQuery(this).attr('selected', 'selected');
+		}
+	});
+}

@@ -1,0 +1,41 @@
+<% content_for(:head) do %>
+<%= javascript_include_tag 'explore/exploreFunctions.js' %>
+<% end %>
+
+<div id="content">
+<h1>Listing all routes</h1>
+	<% @trips.each do |trip| %>
+		<%= trip.title %>
+		<br/>
+	<% end %>
+</div>
+
+<div id="results">
+	<h1>Hier komen de results</h1>
+	<ul></ul>
+</div>
+
+<div id="filter">
+	<%= form_tag "", remote:true , id: "category"  do %>
+		<input type="checkbox" class="category" checked="checked" name="category" value="1">Bos<br>
+		<input type="checkbox" class="category" name="category" value="2">Strand<br>
+		<input type="checkbox" class="category" name="category" value="3">Huis<br>
+		<input type="checkbox" class="category" name="category" value="4">Urban<br>
+		<input type="checkbox" class="category" name="category" value="5">Heide<br>
+		<select class="states">
+			<option name="state" value="Groningen">Groningen</option>
+			<option name="state" value="Friesland">Friesland</option>
+			<option name="state" value="3">Drenthe</option>
+			<option name="state" value="4">Noord-Holland</option>
+		</select>
+
+		<p>
+			<label for="amount">Aantal KM:</label>
+			<input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+		</p>
+	
+		<div id="slider-range"></div>
+		<a href="javascript: void(0);" id="searchButton">Zoek!</a>
+
+	<% end %>
+</div>

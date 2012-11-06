@@ -14,11 +14,19 @@
 	  <b>Description:</b>
 	  <%= @trip.description %>
 	</p>
+	<p>
+		In de stad <strong><%= @trip.start_city%></strong><br>
+		In de provincie <strong><%= @trip.province %></strong>
+	</p>
 	<% for cat in @trip.categories %>
 		<%= link_to cat.name, cat %>
 	<% end %>
-	<%#= image_tag @trip.photo.url(:small) %>
-	
+	<%#= @trip.tripphotos %>
+
+	<% @trip.tripphotos.each do |pic| %>
+		<%= image_tag pic.filename.url(:thumb) %>s
+	<% end %>
+
 	<h2>Route</h1>
 	<% i = 0 %>
 	<% @trip.triplocations.each_with_index do |tl, i| %>
@@ -30,7 +38,7 @@
 		</article>
 	<% end %>
 </div>
-
+<%= @trip.tags %>
 <script>
 	var locs = [];
 	 <% @trip.triplocations.each do |tl| %>

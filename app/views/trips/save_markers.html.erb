@@ -1,9 +1,13 @@
+
 <%= form_for @trip, :html => {:multipart => true} do |a| %> 
 	<%= a.label :title, "Routetitel" %>
 	<%= a.text_field :title %>
 	
 	<%= a.label :description, "Omschrijving" %>
 	<%= a.text_area :description %>
+
+	<%= a.label :start_city, "Stad" %>
+	<%= a.text_field :start_city, :id => "cityName" %>
 	
 	<% for category in Category.find(:all) %>
 		<div>
@@ -11,7 +15,26 @@
 		  <%= category.name %>
 		</div>
 	<% end %>
+	<%= a.fields_for :tags do |f| %>
+		<p>
+			<%= f.label :title, 'Steekwoorden:' %>
+			<%= f.text_field :title %>
+		</p> 
+		<div id="inputFields"></div>
+
+	<% end %>
+	<%= select('trip', :province, %w[Friesland Groningen Zeeland Drenthe Gelderland Overijssel Limburg Noord-Brabant Zeeland Noord-Holland Zuid-Holland Utrecht Lelystad], {:prompt => 'Selecteer provincie'}) %>
+
+	<div style="background: red;">
+		<%= a.fields_for :tripphotos do |photo| %>
+		  Img <%= photo.file_field :filename %>
+		<% end %>
+	</div>
+
+
 	<%= a.submit 'Verstuur' %>
 <% end %>
 
-
+<script> 
+	getCitynameByCoordinates('<%= @trip.triplocations[0].latlng %>');
+</script>
