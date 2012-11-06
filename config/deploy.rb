@@ -25,7 +25,7 @@ set :deloy_via, :remote_cache
 #set :shared_children, shared_children + %w{public/uploads}
 
 default_run_options[:shell] = false #No more  shell
-set :rails_env, "development"
+set :rails_env, "production"
 set :migrate_target, :latest
 
 role :web, "37.34.59.60" # Your HTTP server, Apache/etc
