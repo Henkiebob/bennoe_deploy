@@ -19,6 +19,7 @@ set :use_sudo, false
 set :deploy_to, "/home/deploy/rails_apps/#{application}"
 set :deloy_via, :remote_cache
 
+#dsdas
 #Voor symlink
 # config/deploy.rb
 #set :shared_children, shared_children + %w{public/uploads}
