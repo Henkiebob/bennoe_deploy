@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.rbc
 *.sassc
 .sass-cache
@@ -14,3 +15,8 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+=======
+/db/*.sqlite3
+/log/*
+/tmp/* 
+>>>>>>> First commit
