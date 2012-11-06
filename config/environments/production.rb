@@ -49,6 +49,8 @@ Routing::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( explore/exploreFunctions.js )
   config.assets.precompile += %w( map/mapFunctions.js )
+  config.assets.precompile += %w( map/createMap.js )
+  config.assets.precompile += %w( map/viewMap.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
