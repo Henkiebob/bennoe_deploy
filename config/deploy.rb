@@ -8,7 +8,7 @@ require "bundler/capistrano"
 load 'deploy/assets'
 
 set :application, "bennoe_dev_1"
-set :repository, "git@github.com:Henkiebob/blog.git"
+set :repository, "git@github.com:Henkiebob/bennoe_dev_1.git"
 
 set :scm, 'git'
 
