@@ -4,10 +4,10 @@ require "bundler/capistrano"
 
 #set :rvm_ruby_string, '1.9.3'
 #set :rvm_type, :system 
-#test
+
 load 'deploy/assets'
 
-set :application, "bennoe_dev_1"
+set :application, "blog"
 set :repository, "git@github.com:Henkiebob/bennoe_dev_1.git"
 
 set :scm, 'git'
